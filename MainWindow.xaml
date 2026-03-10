@@ -14,44 +14,51 @@
 	WindowStartupLocation="CenterScreen"
 	mc:Ignorable="d">
 
-	<DockPanel>
-		<Menu DockPanel.Dock="Top">
-			<MenuItem Header="File  ">
-				<MenuItem Click="OpenMenu_Click"
+    <Window.InputBindings>
+        <KeyBinding Key="Enter"
+			Modifiers="Control"
+			Command="{Binding ExecuteQueryCommand}"
+			CommandParameter="{Binding Text, ElementName=QueryTextBox}" />
+    </Window.InputBindings>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File  ">
+                <MenuItem Click="OpenMenu_Click"
 					Header="Open..." />
-				<MenuItem Click="CloseMenu_Click"
+                <MenuItem Click="CloseMenu_Click"
 					Header="Close" />
-				<Separator />
-				<MenuItem Click="ExitMenu_Click"
+                <Separator />
+                <MenuItem Click="ExitMenu_Click"
 					Header="Exit" />
-			</MenuItem>
-			<MenuItem Header="History    ">
-				<MenuItem x:Name="OpenRecentMenu"
+            </MenuItem>
+            <MenuItem Header="History    ">
+                <MenuItem x:Name="OpenRecentMenu"
 					Header="Open Recent" />
-			</MenuItem>
-			<MenuItem Header="SQL History">
-				<MenuItem x:Name="SqlHistoryMenu"
+            </MenuItem>
+            <MenuItem Header="SQL History">
+                <MenuItem x:Name="SqlHistoryMenu"
 					Header="Recent SQL" />
-			</MenuItem>
-		</Menu>
+            </MenuItem>
+        </Menu>
 
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="2*" />
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="3*" />
-			</Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
 
-			<Grid Grid.Column="0"
+            <Grid Grid.Column="0"
 				Margin="8">
-				<!--  Top: original Tabs  -->
-				<TabControl x:Name="TableListArea"
+                <!--  Top: original Tabs  -->
+                <TabControl x:Name="TableListArea"
 					Grid.Row="0"
 					Margin="0,0,0,0"
 					d:SelectedIndex="2"
 					SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
-					<TabItem Header="Tables">
-						<ListBox MinWidth="160"
+                    <TabItem Header="Tables">
+                        <ListBox MinWidth="160"
 							MaxHeight="400"
 							VerticalAlignment="Top"
 							ItemsSource="{Binding Tables}"
@@ -60,9 +67,9 @@
 							ScrollViewer.VerticalScrollBarVisibility="Auto"
 							SelectedItem="{Binding SelectedTable, Mode=TwoWay}"
 							VirtualizingStackPanel.IsVirtualizing="True" />
-					</TabItem>
-					<TabItem Header="Keys">
-						<ListBox MinWidth="160"
+                    </TabItem>
+                    <TabItem Header="Keys">
+                        <ListBox MinWidth="160"
 							MaxHeight="400"
 							VerticalAlignment="Top"
 							ItemsSource="{Binding Keys}"
@@ -70,53 +77,53 @@
 							ScrollViewer.HorizontalScrollBarVisibility="Auto"
 							ScrollViewer.VerticalScrollBarVisibility="Auto"
 							VirtualizingStackPanel.IsVirtualizing="True">
-							<ListBox.ItemTemplate>
-								<DataTemplate>
-									<StackPanel Margin="2"
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="2"
 										Orientation="Vertical">
-										<TextBlock FontWeight="Bold"
+                                        <TextBlock FontWeight="Bold"
 											Text="{Binding Name}" />
-										<TextBlock FontStyle="Italic"
+                                        <TextBlock FontStyle="Italic"
 											Foreground="Gray"
 											Text="{Binding SecondLine}" />
-									</StackPanel>
-								</DataTemplate>
-							</ListBox.ItemTemplate>
-						</ListBox>
-					</TabItem>
-					<TabItem x:Name="EditTab"
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </TabItem>
+                    <TabItem x:Name="EditTab"
 						Header="Edit">
-						<Grid>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="5" />
-								<RowDefinition Height="9*" />
-								<RowDefinition Height="1*" />
-							</Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="9*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
 
-							<!--  Buttons at top of the Edit tab  -->
-							<StackPanel Grid.Row="0"
+                            <!--  Buttons at top of the Edit tab  -->
+                            <StackPanel Grid.Row="0"
 								Margin="0,6,0,0"
 								HorizontalAlignment="Center"
 								Orientation="Horizontal">
-								<Button Width="80"
+                                <Button Width="80"
 									Margin="4"
 									Command="{Binding SaveCurrentEditCommand}">
-									修正
-								</Button>
-								<Button Width="80"
+                                    修正
+                                </Button>
+                                <Button Width="80"
 									Margin="4"
 									Command="{Binding AddNewCommand}">
-									追加
-								</Button>
-								<Button Width="80"
+                                    追加
+                                </Button>
+                                <Button Width="80"
 									Margin="4"
 									Command="{Binding DeleteCurrentCommand}">
-									削除
-								</Button>
-							</StackPanel>
+                                    削除
+                                </Button>
+                            </StackPanel>
 
-							<GridSplitter Grid.Row="1"
+                            <GridSplitter Grid.Row="1"
 								Height="5"
 								HorizontalAlignment="Stretch"
 								VerticalAlignment="Center"
@@ -124,46 +131,46 @@
 								ResizeBehavior="PreviousAndNext"
 								ResizeDirection="Rows" />
 
-							<!--  Item area grows to fill remaining space in the tab  -->
-							<Border Grid.Row="2"
+                            <!--  Item area grows to fill remaining space in the tab  -->
+                            <Border Grid.Row="2"
 								Margin="0,8,0,0"
 								Padding="6"
 								BorderBrush="#DDD"
 								BorderThickness="1"
 								CornerRadius="4">
-								<ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto"
 									VerticalScrollBarVisibility="Auto">
-									<ItemsControl ItemsSource="{Binding Columns}"
+                                    <ItemsControl ItemsSource="{Binding Columns}"
 										d:ItemsSource="{d:SampleData ItemCount=10}">
-										<ItemsControl.ItemTemplate>
-											<DataTemplate>
-												<StackPanel Margin="0,2"
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Margin="0,2"
 													Orientation="Horizontal">
-													<Label Width="120"
+                                                    <Label Width="120"
 														Content="{Binding Name}" />
-													<TextBox Width="260"
+                                                    <TextBox Width="260"
 														Margin="6,0"
 														local:FocusBehavior.NotifyOnFocus="True"
 														Text="{Binding EditValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-													<TextBlock Margin="6,0"
+                                                    <TextBlock Margin="6,0"
 														VerticalAlignment="Center"
 														Foreground="Gray"
 														Text="{Binding Type}" />
-													<CheckBox Margin="6,0"
+                                                    <CheckBox Margin="6,0"
 														Content="NotNull"
 														IsChecked="{Binding NotNull}"
 														IsEnabled="False" />
-													<CheckBox Margin="6,0"
+                                                    <CheckBox Margin="6,0"
 														Content="PK"
 														IsChecked="{Binding PrimaryKey}"
 														IsEnabled="False" />
-												</StackPanel>
-											</DataTemplate>
-										</ItemsControl.ItemTemplate>
-									</ItemsControl>
-								</ScrollViewer>
-							</Border>
-							<TextBox x:Name="txtDetail"
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Border>
+                            <TextBox x:Name="txtDetail"
 								Grid.Row="3"
 								Width="444"
 								Height="80"
@@ -175,20 +182,20 @@
 								AcceptsReturn="True"
 								TextWrapping="Wrap"
 								Text="{Binding SelectedColumn.EditValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-						</Grid>
-					</TabItem>
-				</TabControl>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
 
-				<!--  Splitter between top list and buttons/item area  -->
+                <!--  Splitter between top list and buttons/item area  -->
 
-				<!--  Buttons: Modify / Add / Delete  -->
+                <!--  Buttons: Modify / Add / Delete  -->
 
-				<!--  Splitter between buttons and item area  -->
+                <!--  Splitter between buttons and item area  -->
 
-				<!--  Bottom: Columns for selected table  -->
-			</Grid>
+                <!--  Bottom: Columns for selected table  -->
+            </Grid>
 
-			<GridSplitter x:Name="CenterSplitter"
+            <GridSplitter x:Name="CenterSplitter"
 				Grid.Column="1"
 				Width="6"
 				HorizontalAlignment="Center"
@@ -197,22 +204,22 @@
 				ResizeBehavior="PreviousAndNext"
 				ResizeDirection="Columns" />
 
-			<Grid Grid.Column="2"
+            <Grid Grid.Column="2"
 				Margin="8">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="5" />
-					<RowDefinition Height="*" />
-				</Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-				<!--  Query editor and Execute button  -->
-				<Grid Grid.Row="0">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="110" />
-					</Grid.ColumnDefinitions>
+                <!--  Query editor and Execute button  -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="110" />
+                    </Grid.ColumnDefinitions>
 
-					<TextBox x:Name="QueryTextBox"
+                    <TextBox x:Name="QueryTextBox"
 						Grid.Column="0"
 						Height="110"
 						Margin="0,0,8,8"
@@ -222,17 +229,23 @@
 						TextWrapping="Wrap"
 						VerticalScrollBarVisibility="Auto" />
 
-					<Button Grid.Column="1"
+                    <Button Grid.Column="1"
 						Width="100"
-						Height="32"
+						Height="59"
 						VerticalAlignment="Top"
 						Command="{Binding ExecuteQueryCommand}"
-						CommandParameter="{Binding Text, ElementName=QueryTextBox}">
-						Execute
-					</Button>
-				</Grid>
-				<!--  Splitter between query editor and data grid  -->
-				<GridSplitter Grid.Row="1"
+						CommandParameter="{Binding Text, ElementName=QueryTextBox}" Margin="5,0,5,0">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock HorizontalAlignment="Center" Text="Execute" />
+                            <TextBlock HorizontalAlignment="Center"
+								FontSize="12"
+								Foreground="Gray"
+								Text="(Ctrl+Enter)" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                <!--  Splitter between query editor and data grid  -->
+                <GridSplitter Grid.Row="1"
 					Height="5"
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Center"
@@ -240,11 +253,11 @@
 					ResizeBehavior="PreviousAndNext"
 					ResizeDirection="Rows" />
 
-				<Border Grid.Row="2"
+                <Border Grid.Row="2"
 					BorderBrush="#DDD"
 					BorderThickness="1"
 					CornerRadius="4">
-					<DataGrid x:Name="ListArea"
+                    <DataGrid x:Name="ListArea"
 						AlternatingRowBackground="Wheat"
 						AlternationCount="2"
 						AutoGenerateColumns="True"
@@ -252,8 +265,8 @@
 						ItemsSource="{Binding SelectedTableView}"
 						RowBackground="White"
 						SelectedItem="{Binding SelectedRow, Mode=TwoWay}" />
-				</Border>
-			</Grid>
-		</Grid>
-	</DockPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>
