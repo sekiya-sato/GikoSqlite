@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace GikoSqlite.ViewModels;
 
@@ -419,14 +420,15 @@ public partial class MainViewModel : ObservableObject {
 	public async Task ExecuteQueryAsync(string sql) {
 		if (string.IsNullOrWhiteSpace(sql) || string.IsNullOrWhiteSpace(_currentDatabasePath)) return;
 		try {
-			AddSqlHistory(sql);
 			var dt = await Task.Run(() => _dbService.ExecuteQuery(_currentDatabasePath!, sql));
 			SelectedTableView = dt.DefaultView;
-
+			AddSqlHistory(sql);
 			// Try to detect a simple FROM <table> and populate Columns for quick edit
 			await TryPopulateColumnsFromSelectAsync(sql);
 		}
-		catch { }
+		catch (Exception ex) {
+			MessageBox.Show(ex.Message, "クエリの実行に失敗", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
 	}
 
 	/// <summary>
